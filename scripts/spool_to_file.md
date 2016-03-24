@@ -1,5 +1,5 @@
-**WARNING:** the following script is bad practice, and should only be used if no other solutions are available.
-Each time you run this script free tablespace size is decreased, and you may end up with ORA-01653 (unable to extend tablespace).
+**WARNING:** the following script is not intended to be used in production environments. If there is not enough space in the temporary tablespace you may end up with ORA-01652 (unable to extend temp segment).
+Check [Temporary Tablespace Usage](https://github.com/raf48/oracle-scripts/blob/master/scripts/tablespace_size.md) before executing!
 
 Read file from Oracle directory with PL/SQL and spool it to a local file using SQL*Plus:
 
@@ -13,7 +13,10 @@ set echo off
 
 spool spoolfile.txt
 
-create table spool_tmp(text varchar2(4000), line number)
+create global temporary table spool_tmp(
+  text varchar2(4000),
+  line number)
+on commit delete rows
 /
 declare
   l_file utl_file.file_type;
