@@ -1,4 +1,4 @@
-Simple SQL script to generate Automatic Workload Repository (AWR) report:
+Simple SQL script to generate Automatic Workload Repository (AWR) report.
 
 Select SNAP_ID:
 ```sql
