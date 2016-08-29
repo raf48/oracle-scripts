@@ -25,7 +25,7 @@ declare
   l_line_buffer varchar2(4000);
   l_i number := 1;
 begin
-  l_file := utl_file.fopen('CUSTOM_TOP', '20160816_awr.html', 'r', 4000);
+  l_file := utl_file.fopen('ORACLE_DIRECTORY', 'file.txt', 'r', 4000);
   begin
     loop
       utl_file.get_line(l_file, l_line_buffer);
