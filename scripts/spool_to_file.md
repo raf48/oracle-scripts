@@ -19,27 +19,36 @@ create global temporary table spool_tmp(
 on commit delete rows
 /
 declare
+  type t_file is table of spool_tmp%rowtype;
+  l_file_buffer t_file := t_file();
   l_file utl_file.file_type;
-  l_read_line varchar2(4000);
-  l_line_n number := 1;
+  l_line_buffer varchar2(4000);
+  l_i number := 1;
 begin
-  l_file := utl_file.fopen('ORACLE_DIRECTORY', 'file.txt', 'r', 4000);
+  l_file := utl_file.fopen('CUSTOM_TOP', '20160816_awr.html', 'r', 4000);
   begin
     loop
-      utl_file.get_line(l_file, l_read_line);
-      insert into spool_tmp(text, line) values(l_read_line, l_line_n);
-      l_line_n := l_line_n + 1;
+      utl_file.get_line(l_file, l_line_buffer);
+      l_file_buffer.extend(1);
+      l_file_buffer(l_i).text := l_line_buffer;
+      l_file_buffer(l_i).line := l_i;
+      l_i := l_i + 1;
     end loop;
   exception
     when no_data_found then
       null;
   end;
   utl_file.fclose(l_file);
+  
+  forall i in 1 .. l_file_buffer.count
+    insert /*+ APPEND_VALUES */ into spool_tmp(text, line)
+    values(l_file_buffer(i).text, l_file_buffer(i).line);
 exception
   when others then
     if utl_file.is_open(l_file) then
       utl_file.fclose(l_file);
     end if;
+    raise;
 end;
 /
 select text from spool_tmp order by line asc
