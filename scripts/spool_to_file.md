@@ -16,7 +16,7 @@ spool spoolfile.txt
 create global temporary table spool_tmp(
   text varchar2(4000),
   line number)
-on commit delete rows
+on commit preserve rows
 /
 declare
   type t_file is table of spool_tmp%rowtype;
@@ -43,6 +43,7 @@ begin
   forall i in 1 .. l_file_buffer.count
     insert /*+ APPEND_VALUES */ into spool_tmp(text, line)
     values(l_file_buffer(i).text, l_file_buffer(i).line);
+  commit;
 exception
   when others then
     if utl_file.is_open(l_file) then
@@ -52,6 +53,8 @@ exception
 end;
 /
 select text from spool_tmp order by line asc
+/
+truncate table spool_tmp
 /
 drop table spool_tmp
 /
