@@ -8,7 +8,7 @@ select
 from
   dba_hist_snapshot
 order by
- snap_id desc;
+  end_interval_time desc;
 ```
 
 Select AWR (HTML):
@@ -23,6 +23,13 @@ from
       &begin_snapshot,
       &end_snapshot)
   );
+```
+
+To create a manual snapshot execute:
+```sql
+begin
+  dbms_workload_repository.create_snapshot;
+end;
 ```
 
 You can also use Oracle supplied SQL scripts from:
