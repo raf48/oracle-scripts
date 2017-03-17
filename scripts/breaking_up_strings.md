@@ -1,4 +1,4 @@
-###Breaking Up a Delimited String
+### Breaking Up a Delimited String
 
 Breaking a simple string with space as delimiter:
 ```sql
@@ -28,9 +28,9 @@ select
 from
   test,
   lateral (select
-			 regexp_substr(str, '[^,]+', 1, rownum) val
+             regexp_substr(str, '[^,]+', 1, rownum) val
            from
-		     dual
+             dual
            connect by
-		     level <= regexp_count(str, ',') + 1)
+             level <= regexp_count(str, ',') + 1)
 ```

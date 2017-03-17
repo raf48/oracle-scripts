@@ -1,4 +1,4 @@
-###Find locked objects in DB
+### Find locked objects in DB
 
 ```sql
 select

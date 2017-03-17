@@ -1,4 +1,4 @@
-###Search all packages and view sources for "&text".
+### Search all packages and view sources for "&text".
 
 ```sql
 select

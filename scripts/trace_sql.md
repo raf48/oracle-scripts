@@ -1,4 +1,4 @@
-###Basic Oracle session trace
+### Basic Oracle session trace
 
 Enable the SQL Trace facility for current session by using one of the following:
 ```sql
