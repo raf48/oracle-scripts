@@ -8,3 +8,5 @@ A collection of Oracle Database SQL/PLSQL scripts that I found useful. Everythin
 + [user sources](https://github.com/raf48/oracle-scripts/blob/master/scripts/user_source.md)
 + [trace sql](https://github.com/raf48/oracle-scripts/blob/master/scripts/trace_sql.md)
 + [locked objects](https://github.com/raf48/oracle-scripts/blob/master/scripts/locked_objects.md)
++ [breaking up strings](https://github.com/raf48/oracle-scripts/blob/master/scripts/breaking_up_strings.md)
+
